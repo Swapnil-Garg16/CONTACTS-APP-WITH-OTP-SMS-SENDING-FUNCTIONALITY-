@@ -19,6 +19,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
+
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
@@ -59,7 +60,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
    public void addContact(CustomSms customSms) {
         SQLiteDatabase db = this.getWritableDatabase();
-
+         db.beginTransaction();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, customSms.getAddress()); // Contact Name
         values.put(KEY_OTP, customSms.getOtp());
@@ -92,6 +93,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
 
         SQLiteDatabase db = this.getWritableDatabase();
+        db=this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
@@ -132,6 +134,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] { String.valueOf(customSms.getId()) });
         db.close();
     }
+
+
+
 
 
     // Getting contacts Count

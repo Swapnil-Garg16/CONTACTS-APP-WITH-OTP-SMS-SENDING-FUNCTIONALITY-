@@ -29,6 +29,7 @@
                             private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
                             DatabaseHandler db = new DatabaseHandler(this);
 
+
                             @Override
                             protected void onCreate(Bundle savedInstanceState) {
                                 super.onCreate(savedInstanceState);
@@ -60,7 +61,7 @@
                                     @Override
                                     public void onClick(View v) {
 
-                                        Toast.makeText(SendMessageActivity.this ,number  , Toast.LENGTH_SHORT).show();
+
                                         Log.d("num" , number);
                                         Log.d("otp", String.valueOf(otpNumber));
 
@@ -76,7 +77,6 @@
                                             String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                         sms.setAddress(number);
                                             db.addContact(new CustomSms(name,currentDateTimeString,otpnum));
-                                            Toast.makeText(SendMessageActivity.this , name+" "+ currentDateTimeString + " "+otpnum + " ", Toast.LENGTH_SHORT).show();
 
                                         } catch (Exception e) {
                                             Toast.makeText(getApplicationContext(),

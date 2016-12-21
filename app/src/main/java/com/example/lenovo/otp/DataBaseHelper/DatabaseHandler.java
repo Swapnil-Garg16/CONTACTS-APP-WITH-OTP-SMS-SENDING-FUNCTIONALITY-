@@ -46,7 +46,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_OTP + "TEXT," + KEY_DATE + "TEXT" +")";
+                + KEY_DATE + " TEXT," + KEY_OTP + " TEXT" +");";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
@@ -63,8 +63,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
          db.beginTransaction();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, customSms.getAddress()); // Contact Name
+       values.put(KEY_DATE,customSms.getDate());
         values.put(KEY_OTP, customSms.getOtp());
-        values.put(KEY_DATE,customSms.getDate());
+
 
         // Inserting Row
         db.insert(TABLE_CONTACTS, null, values);
@@ -75,7 +76,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_CONTACTS, new String[] { KEY_ID,
-                        KEY_NAME,KEY_OTP,KEY_DATE}, KEY_ID + "=?",
+                        KEY_NAME,KEY_DATE,KEY_OTP}, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -102,8 +103,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 CustomSms contact = new CustomSms();
                 contact.setId(Integer.parseInt(cursor.getString(0)));
                 contact.setAddress(cursor.getString(1));
-                contact.setOtp(cursor.getString(2));
-                contact.setDate(cursor.getString(3));
+                contact.setDate(cursor.getString(2));
+                contact.setOtp(cursor.getString(3));
+
                 // Adding contact to list
                 smsList.add(contact);
             } while (cursor.moveToNext());
@@ -118,8 +120,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, customSms.getAddress());
-        values.put(KEY_OTP,customSms.getOtp());
         values.put(KEY_DATE,customSms.getDate());
+        values.put(KEY_OTP,customSms.getOtp());
 
 
         // updating row

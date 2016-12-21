@@ -39,6 +39,14 @@
                 }
 
                 @Override
+                public void onResume() {
+                    super.onResume();
+                    cList=db.getAllContacts();
+                    Log.d("size1" , String.valueOf(cList.size()));
+
+                }
+
+                @Override
                 public void onCreate(Bundle savedInstanceState) {
                     super.onCreate(savedInstanceState);
 
@@ -54,9 +62,9 @@
 
                     db = new DatabaseHandler(getActivity());
                     cList=new ArrayList<CustomSms>();
-                    cList=db.getAllContacts();
+                    /*cList=db.getAllContacts();
                     Log.d("size" , String.valueOf(cList.size()));
-
+*/
                    mAdapter = new SmsAdapter(getActivity(),cList);
 
                     LinearLayoutManager llm = new LinearLayoutManager(getActivity());

@@ -73,7 +73,7 @@
                 @Override
 
                 public void onBindViewHolder(ViewHolder holder, int position) {
-                    final CustomSms r = smsList.get(position);
+                    final CustomSms r = dbList.get(position);
                     holder.receiverName.setText(r.address);
                     holder.date.setText(r.date);
                     holder.otp.setText(r.otp);
@@ -83,7 +83,7 @@
 
                 @Override
                 public int getItemCount() {
-                    return smsList.size();
+                    return dbList.size();
 
                 }
             }
